@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay Page</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h1>Purchase Product</h1>
+  <button id="checkout-button">Pay Now</button>
+  
+  <script>
+    var stripe = Stripe("your-public-key-here");
+
+    document.getElementById("checkout-button").addEventListener("click", function () {
+      stripe.redirectToCheckout({
+        lineItems: [{ price: "your-price-id", quantity: 1 }],
+        mode: "payment",
+        successUrl: "https://yourdomain.com/success.html",
+        cancelUrl: "https://yourdomain.com/cancel.html",
+      }).then(function (result) {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
