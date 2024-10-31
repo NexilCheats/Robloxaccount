@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pay Page</title>
-  <script src="https://js.stripe.com/v3/"></script>
+  <title>Payment Page</title>
 </head>
 <body>
-  <h1>Purchase Product</h1>
-  <button id="checkout-button">Pay Now</button>
-  
-  <script>
-    var stripe = Stripe("your-public-key-here");
+  <h1>Choose Your Payment Method</h1>
 
-    document.getElementById("checkout-button").addEventListener("click", function () {
-      stripe.redirectToCheckout({
-        lineItems: [{ price: "your-price-id", quantity: 1 }],
-        mode: "payment",
-        successUrl: "https://yourdomain.com/success.html",
-        cancelUrl: "https://yourdomain.com/cancel.html",
-      }).then(function (result) {
-        if (result.error) {
-          alert(result.error.message);
-        }
-      });
-    });
-  </script>
+  <h2>Cash App</h2>
+  <p>Send your payment to the Cash App username below:</p>
+  <p><strong>$ze6b</strong></p>
+  <p>Once paid, enter your payment info below to confirm.</p>
+
+  <h2>PayPal</h2>
+  <p>Send your payment using the PayPal button:</p>
+  <form action="https://www.paypal.com/donate" method="post" target="_top">
+    <input type="hidden" name="business" value="capricereed333@gmail.com" />
+    <input type="hidden" name="currency_code" value="USD" />
+    <input type="submit" value="Pay with PayPal" />
+  </form>
+
+  <h2>Bitcoin</h2>
+  <p>Send the Bitcoin amount to the following address:</p>
+  <p><strong>1YourBitcoinAddressHere</strong></p>
+  <p>Or scan the QR code below:</p>
+  <img src="your-bitcoin-qr-code.png" alt="Bitcoin QR Code" width="150" height="150">
+
+  <h3>Payment Confirmation</h3>
+  <form action="success.html" method="post">
+    <label for="payment-method">Select payment method:</label>
+    <select id="payment-method" name="payment-method">
+      <option value="cashapp">Cash App</option>
+      <option value="paypal">PayPal</option>
+      <option value="bitcoin">Bitcoin</option>
+    </select>
+    <br />
+    <label for="transaction-id">Transaction ID or Username:</label>
+    <input type="text" id="transaction-id" name="transaction-id" required />
+    <br />
+    <input type="submit" value="Submit Payment Confirmation" />
+  </form>
 </body>
 </html>
